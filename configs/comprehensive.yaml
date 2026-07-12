@@ -1,0 +1,232 @@
+schema_version: "1.0"
+project:
+  name: "Comprehensive political brick-video analysis"
+  output_root: "outputs"
+  overwrite: false
+  resume: true
+  random_seed: 2026
+legal:
+  show_non_affiliation_disclaimer: true
+  trademark_review_required_for_public_release: true
+  trademark_review_file: "TRADEMARK_REVIEW.md"
+  ultralytics_license_acknowledged: false
+  public_distribution_name: "legopolitics"
+input:
+  recursive: true
+  allowed_extensions: [".mp4", ".mkv", ".mov", ".avi", ".webm"]
+sampling:
+  mode: "hybrid"
+  fps: 1.0
+  include_first_frame: true
+  include_last_frame: true
+  include_scene_boundaries: true
+  frames_per_scene: 1
+  scene_detector: "adaptive"
+  motion_sampling: true
+  motion_threshold: 0.30
+  maximum_gap_seconds: 2.0
+  minimum_gap_seconds: 0.10
+  deduplicate_frames: true
+  perceptual_hash_threshold: 4
+detection:
+  enabled: true
+  primary_backend: "yolo"
+  yolo:
+    weights: "models/best.pt"
+    task: "auto"
+    confidence_threshold: 0.30
+    iou_threshold: 0.50
+    image_size: 1280
+    device: "auto"
+    half_precision: true
+    save_annotated_frames: true
+  open_vocabulary:
+    enabled: true
+    backend: "grounding_dino"
+    box_threshold: 0.30
+    text_threshold: 0.25
+    text_queries:
+      - "brick-built figure"
+      - "rifle"
+      - "missile"
+      - "tank"
+      - "national flag"
+      - "destroyed building"
+      - "hospital"
+      - "civilian vehicle"
+segmentation:
+  enabled: true
+  backend: "sam2"
+  use_detection_boxes_as_prompts: true
+  propagate_masks: true
+  save_masks: true
+  save_rgba_crops: true
+tracking:
+  enabled: true
+  backend: "iou"
+  tracker: "bytetrack"
+  use_appearance_embeddings: true
+  appearance_model: "dinov2"
+  secondary_appearance_model: "clip"
+  maximum_track_gap_frames: 10
+  minimum_track_length_frames: 2
+  iou_match_threshold: 0.30
+vision:
+  whole_frame: true
+  crops: true
+  context_crops: true
+  track_representatives: true
+  track_contact_sheets: true
+  sequence_windows: true
+  sequence_window_frames: 5
+  models:
+    florence2:
+      enabled: true
+      model_id: "microsoft/Florence-2-large-ft"
+      trust_remote_code: false
+      tasks: ["caption", "more_detailed_caption", "object_detection", "dense_region_caption", "ocr", "ocr_with_region"]
+    blip:
+      enabled: false
+    blip2:
+      enabled: false
+    clip:
+      enabled: true
+      model_id: "openai/clip-vit-large-patch14"
+      labels_from_codebook: true
+    dinov2:
+      enabled: true
+      model_id: "facebook/dinov2-large"
+    general_vlm:
+      enabled: false
+    huggingface_vlms:
+      - name: "smolvlm2"
+        enabled: false
+        model_id: "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
+        input_mode: "chat"
+        dtype: "bfloat16"
+        generation:
+          max_new_tokens: 256
+      - name: "qwen2_5_vl"
+        enabled: false
+        model_id: "Qwen/Qwen2.5-VL-3B-Instruct"
+        input_mode: "chat"
+        dtype: "bfloat16"
+        generation:
+          max_new_tokens: 256
+      - name: "idefics3"
+        enabled: false
+        model_id: "HuggingFaceM4/Idefics3-8B-Llama3"
+        input_mode: "chat"
+        dtype: "bfloat16"
+      - name: "llava_onevision"
+        enabled: false
+        model_id: "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+        input_mode: "chat"
+        dtype: "float16"
+    video_vlm:
+      enabled: false
+ocr:
+  enabled: true
+  backends: ["florence2", "trocr"]
+  detect_language: true
+  translate_to: "en"
+  temporal_deduplication: true
+  associate_text_with_tracks: true
+audio:
+  enabled: true
+  extract_audio: true
+  asr:
+    backend: "whisper"
+    model: "openai/whisper-large-v3"
+    task: "transcribe"
+    word_timestamps: true
+  diarization:
+    enabled: true
+    backend: "pyannote"
+    model_id: "pyannote/speaker-diarization-community-1"
+  translation:
+    enabled: false
+    target_language: "en"
+  audio_events:
+    enabled: false
+    labels: ["explosion", "gunshot", "siren", "cheering", "crying", "chanting", "military-style music", "patriotic-style music", "silence"]
+research:
+  event_context: "Example study of a fictional brick-built conflict between Side A and Side B; replace this with carefully sourced context for an actual case."
+  research_question: "How are the depicted sides presented in terms of agency, aggression, victimization, heroism, competence, legitimacy, and moral responsibility?"
+  codebook_path: "configs/propaganda_codebook.yaml"
+  known_groups:
+    - group_id: "side_a"
+      label: "Side A"
+      descriptions: []
+      symbols: []
+      reference_images: []
+    - group_id: "side_b"
+      label: "Side B"
+      descriptions: []
+      symbols: []
+      reference_images: []
+    - group_id: "civilian"
+      label: "Civilians"
+      descriptions: []
+      symbols: []
+      reference_images: []
+  inference_constraints:
+    - "Do not infer nationality solely from clothing color."
+    - "Do not infer religion from appearance."
+    - "Do not infer ethnicity from depicted skin or head color."
+    - "Do not identify a historical person without explicit evidence."
+    - "Separate observation from interpretation."
+    - "Represent uncertainty explicitly."
+    - "Do not equate lying down with death without supporting evidence."
+    - "Do not treat the supplied event context as visual evidence."
+prompting:
+  blind_visual_pass: true
+  contextual_pass: true
+  codebook_pass: true
+  contradiction_pass: true
+  relationship_pass: true
+  narrative_pass: true
+  save_rendered_prompts: true
+  save_raw_responses: true
+  maximum_retries: 2
+  structured_output: true
+output:
+  excel: true
+  parquet: true
+  jsonl: true
+  sqlite: true
+  html_report: true
+  save_frames: true
+  save_crops: true
+  save_masks: true
+  save_annotated_frames: true
+  one_workbook_per_video: true
+  global_dataset_tables: true
+  include_excel_charts: true
+performance:
+  device: "auto"
+  dtype: "auto"
+  enable_tf32: true
+  inference_batch_size: "auto"
+  cpu_workers: 4
+  prefetch_frames: 16
+  pin_memory: true
+  low_vram_mode: false
+  unload_models_between_stages: false
+  oom_recovery: true
+logging:
+  level: "INFO"
+  console: true
+  file: true
+  json_log: true
+  progress_bar: true
+  scan_progress_every: 1000
+  process_progress_every: 100
+validation:
+  enabled: true
+  random_sample_size: 100
+  low_confidence_sample_size: 100
+  disagreement_sample_size: 100
+  rare_class_sample_size: 50
+  stratify_by_video: true
+  stratify_by_class: true

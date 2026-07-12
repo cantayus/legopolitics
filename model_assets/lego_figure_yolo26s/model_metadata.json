@@ -1,0 +1,24 @@
+{
+  "model_name": "lego_figure_yolo26s",
+  "architecture": "YOLO26s",
+  "task": "detect",
+  "classes": {
+    "0": "human",
+    "1": "lego_figure"
+  },
+  "default_target_class": "lego_figure",
+  "default_target_class_id": 1,
+  "training_image_size": 640,
+  "epochs": 50,
+  "seed": 42,
+  "checkpoint_size_bytes": 20312709,
+  "sha256": "b027885bd139f7eced7e39beb4e734ad7fa9a88ef28c77cecea75d17bdc5e98b",
+  "final_metrics": {
+    "precision": 0.94639,
+    "recall": 0.70621,
+    "map50": 0.79407,
+    "map50_95": 0.59977
+  },
+  "source_archive": "yolo26s_results_alternative.zip",
+  "notes": "User-supplied research checkpoint. Not embedded in the PyPI wheel."
+}

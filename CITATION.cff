@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: legopolitics
+message: "Please cite the software version and model revisions used in your analysis."
+type: software
+authors:
+  - family-names: Caliskan
+    given-names: Cantay
+version: 0.1.0
+license: other

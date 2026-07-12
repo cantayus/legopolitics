@@ -1,0 +1,527 @@
+schema_version: '1.0'
+entries:
+- variable_id: ingroup_heroism
+  label: In-group heroism
+  description: Degree to which the scene depicts in-group heroism.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: outgroup_threat
+  label: Out-group threat
+  description: Degree to which the scene depicts out-group threat.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: victimization
+  label: Victimization
+  description: Degree to which the scene depicts victimization.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: retaliation
+  label: Retaliation
+  description: Degree to which the scene depicts retaliation.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: self_defense
+  label: Self-defense
+  description: Degree to which the scene depicts self-defense.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: liberation
+  label: Liberation
+  description: Degree to which the scene depicts liberation.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: revenge
+  label: Revenge
+  description: Degree to which the scene depicts revenge.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: sacrifice
+  label: Sacrifice
+  description: Degree to which the scene depicts sacrifice.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: victory
+  label: Victory
+  description: Degree to which the scene depicts victory.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: humiliation
+  label: Humiliation
+  description: Degree to which the scene depicts humiliation.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: territorial_entitlement
+  label: Territorial entitlement
+  description: Degree to which the scene depicts territorial entitlement.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: historical_grievance
+  label: Historical grievance
+  description: Degree to which the scene depicts historical grievance.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: national_unity
+  label: National unity
+  description: Degree to which the scene depicts national unity.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: religious_legitimacy
+  label: Religious legitimacy
+  description: Degree to which the scene depicts religious legitimacy.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: military_superiority
+  label: Military superiority
+  description: Degree to which the scene depicts military superiority.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: technological_superiority
+  label: Technological superiority
+  description: Degree to which the scene depicts technological superiority.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: enemy_incompetence
+  label: Enemy incompetence
+  description: Degree to which the scene depicts enemy incompetence.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: enemy_cruelty
+  label: Enemy cruelty
+  description: Degree to which the scene depicts enemy cruelty.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: civilian_suffering
+  label: Civilian suffering
+  description: Degree to which the scene depicts civilian suffering.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: inevitable_victory
+  label: Inevitable victory
+  description: Degree to which the scene depicts inevitable victory.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean
+- variable_id: mobilization_appeal
+  label: Mobilization appeal
+  description: Degree to which the scene depicts mobilization appeal.
+  unit_of_analysis: frame
+  allowed_values:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  scale:
+    min: 0
+    max: 5
+  inclusion_criteria:
+  - Direct visual, textual, or audio evidence is present.
+  exclusion_criteria:
+  - The judgment relies only on supplied historical context.
+  positive_examples: []
+  negative_examples: []
+  ambiguous_examples: []
+  required_evidence:
+  - At least one internal evidence identifier.
+  prompt_instructions: Score conservatively and report contradictory evidence.
+  aggregation_method: mean

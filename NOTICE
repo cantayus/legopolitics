@@ -1,0 +1,22 @@
+legopolitics is an independent academic research software project.
+
+Copyright (c) 2026 Cantay Caliskan.
+
+The original legopolitics source code, documentation, configuration files, and
+other project-authored materials are distributed under the MIT License. See
+LICENSE for the complete terms.
+
+The MIT License does not automatically apply to third-party dependencies,
+external executables, datasets, downloaded model weights, user-supplied model
+weights, or other separately identified assets. Those materials remain subject
+to their own licenses and terms. Review THIRD_PARTY_LICENSES.md,
+MODEL_LICENSES.md, and the relevant model cards before redistribution or use.
+
+The optional Ultralytics integration may be subject to AGPL-3.0 or an
+Ultralytics Enterprise License. Users must independently determine and satisfy
+all applicable obligations. The repository's MIT License does not replace or
+supersede those obligations.
+
+LEGO® is a trademark of the LEGO Group of companies, which does not sponsor,
+authorize, or endorse this project. legopolitics is not affiliated with,
+maintained by, sponsored by, authorized by, or associated with the LEGO Group.

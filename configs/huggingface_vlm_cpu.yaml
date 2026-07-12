@@ -1,0 +1,22 @@
+schema_version: "1.0"
+
+vision:
+  whole_frame: true
+  crops: true
+  models:
+    huggingface_vlms:
+      - name: "smolvlm_500m"
+        enabled: true
+        model_id: "HuggingFaceTB/SmolVLM-500M-Instruct"
+        input_mode: "chat"
+        dtype: "float32"
+        quantization: "none"
+        generation:
+          max_new_tokens: 128
+
+performance:
+  device: "cpu"
+  hardware_profile: "cpu"
+  dtype: "float32"
+  inference_batch_size: 1
+  unload_models_between_stages: true

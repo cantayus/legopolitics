@@ -1,0 +1,8 @@
+name: legopolitics
+channels: [conda-forge, pytorch, nvidia]
+dependencies:
+  - python=3.11
+  - ffmpeg
+  - pip
+  - pip:
+      - -e .

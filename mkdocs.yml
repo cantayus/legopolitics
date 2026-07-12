@@ -1,0 +1,101 @@
+site_name: legopolitics
+site_description: Multimodal political analysis of brick-built videos
+site_url: https://cantayus.github.io/legopolitics/
+repo_url: https://github.com/cantayus/legopolitics
+repo_name: cantayus/legopolitics
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  logo: assets/legopolitics-logo.png
+  favicon: assets/favicon.png
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - content.tabs.link
+    - search.highlight
+    - search.suggest
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick Start: quick_start.md
+  - Complete Tutorial: tutorial.md
+  - Interfaces:
+      - Python API: python_api.md
+      - CLI: cli.md
+      - Configuration: configuration.md
+  - Pipeline:
+      - Sampling: sampling.md
+      - Object Detection: object_detection.md
+      - Custom YOLO Model: custom_yolo_model.md
+      - Open-Vocabulary Detection: open_vocabulary_detection.md
+      - Segmentation: segmentation.md
+      - Tracking: tracking.md
+      - Visual Models: visual_models.md
+      - Hugging Face VLM Ensemble: huggingface_vlm_ensemble.md
+      - OCR: ocr.md
+      - Audio: audio.md
+      - Narrative Analysis: narrative_analysis.md
+      - Political Codebook: political_codebook.md
+  - Data and Validation:
+      - Outputs: outputs.md
+      - Output Schemas: output_schemas.md
+      - Excel Workbook: excel_workbook.md
+      - Parquet Dataset: parquet_dataset.md
+      - SQLite Manifest: sqlite_manifest.md
+      - Validation: validation.md
+      - Reproducibility: reproducibility.md
+  - Deployment:
+      - Parallel Batches: parallel_batches.md
+      - GPU Optimization: gpu_optimization.md
+      - Windows and UNC Paths: windows_unc.md
+      - Offline Use: offline_use.md
+      - Remote Privacy: remote_privacy.md
+      - Plugins: plugins.md
+      - Publishing: publishing.md
+      - Troubleshooting: troubleshooting.md
+  - Governance:
+      - Methodology: methodology.md
+      - Ethical Considerations: ethical_considerations.md
+      - Limitations: limitations.md
+      - Model Licensing: model_licensing.md
+      - Trademark and Legal: legal.md
+      - Citation: citation.md
+
+copyright: >-
+  LEGO® is a trademark of the LEGO Group, which does not sponsor, authorize,
+  or endorse this independent academic research project.

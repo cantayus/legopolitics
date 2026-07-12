@@ -1,0 +1,24 @@
+schema_version: "1.0"
+project:
+  name: "Minimal legopolitics analysis"
+  output_root: "outputs"
+  resume: true
+sampling:
+  mode: "hybrid"
+  fps: 1.0
+detection:
+  enabled: false
+tracking:
+  enabled: false
+vision:
+  models: {}
+ocr:
+  enabled: false
+audio:
+  enabled: false
+output:
+  excel: true
+  parquet: true
+  jsonl: true
+  sqlite: true
+  html_report: true

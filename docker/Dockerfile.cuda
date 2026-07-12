@@ -1,0 +1,7 @@
+ARG PYTORCH_IMAGE=pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime
+FROM ${PYTORCH_IMAGE}
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg libgl1 && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY . /app
+RUN python -m pip install --no-cache-dir ".[huggingface,yolo,audio,parquet]"
+ENTRYPOINT ["legopolitics"]

@@ -1,0 +1,23 @@
+include README.md PUBLISHING.md LICENSE NOTICE CHANGELOG.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md VALIDATION_REPORT.md IMPLEMENTATION_STATUS.md PUBLICATION_READINESS.md
+include CITATION.cff THIRD_PARTY_LICENSES.md MODEL_LICENSES.md TRADEMARK_NOTICE.md TRADEMARK_REVIEW.md
+include mkdocs.yml environment.yml REPOSITORY_TREE.txt
+recursive-include docs *.md *.png
+recursive-include configs *.yaml
+recursive-include examples *.py
+recursive-include notebooks *.ipynb
+recursive-include schemas *.md
+recursive-include scripts *.py
+recursive-include benchmarks *.md
+recursive-include docker *
+graft .github
+recursive-include tests *.py
+prune build
+prune dist
+prune site
+prune .mypy_cache
+prune .pytest_cache
+prune .ruff_cache
+prune src/*.egg-info
+global-exclude __pycache__ *.py[cod] .DS_Store
+
+include REDISTRIBUTION.md
