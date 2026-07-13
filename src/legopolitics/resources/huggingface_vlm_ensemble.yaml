@@ -1,0 +1,43 @@
+schema_version: "1.0"
+
+vision:
+  whole_frame: true
+  crops: true
+  context_crops: true
+  models:
+    huggingface_vlms:
+      - name: "smolvlm2"
+        enabled: true
+        model_id: "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
+        input_mode: "chat"
+        dtype: "bfloat16"
+        generation:
+          max_new_tokens: 256
+      - name: "qwen2_5_vl"
+        enabled: true
+        model_id: "Qwen/Qwen2.5-VL-3B-Instruct"
+        input_mode: "chat"
+        dtype: "bfloat16"
+        generation:
+          max_new_tokens: 256
+        processor_kwargs:
+          min_pixels: 200704
+          max_pixels: 802816
+      - name: "idefics3"
+        enabled: false
+        model_id: "HuggingFaceM4/Idefics3-8B-Llama3"
+        input_mode: "chat"
+        dtype: "bfloat16"
+        generation:
+          max_new_tokens: 256
+      - name: "llava_onevision"
+        enabled: false
+        model_id: "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+        input_mode: "chat"
+        dtype: "float16"
+        generation:
+          max_new_tokens: 256
+
+performance:
+  device: "auto"
+  unload_models_between_stages: true
