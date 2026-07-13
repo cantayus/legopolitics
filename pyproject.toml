@@ -105,7 +105,7 @@ docs = [
 dev = [
   "pytest>=8",
   "pytest-cov>=5",
-  "ruff>=0.7",
+  "ruff==0.15.21",
   "mypy>=1.11,<2",
   "types-PyYAML>=6.0.12",
   "build>=1.2",
