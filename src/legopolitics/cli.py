@@ -128,9 +128,7 @@ def sample_frames(
     console.print(f"Sampled {len(result.frames)} frames")
 
 
-def _run_feature(
-    video: Path, output: Path, config: Path | None, overrides: dict
-) -> None:
+def _run_feature(video: Path, output: Path, config: Path | None, overrides: dict) -> None:
     cfg = _config(config).with_overrides(**overrides)
     LegoPoliticsAnalyzer(cfg).analyze_video(video, output)
 
@@ -150,9 +148,7 @@ def segment(
     output: Annotated[Path, typer.Option("--output")],
     config: Path | None = None,
 ) -> None:
-    _run_feature(
-        video, output, config, {"detection.enabled": True, "segmentation.enabled": True}
-    )
+    _run_feature(video, output, config, {"detection.enabled": True, "segmentation.enabled": True})
 
 
 @app.command("track")
@@ -161,9 +157,7 @@ def track(
     output: Annotated[Path, typer.Option("--output")],
     config: Path | None = None,
 ) -> None:
-    _run_feature(
-        video, output, config, {"detection.enabled": True, "tracking.enabled": True}
-    )
+    _run_feature(video, output, config, {"detection.enabled": True, "tracking.enabled": True})
 
 
 @app.command("describe")
@@ -243,9 +237,7 @@ def validate(
 
 
 @app.command("review")
-def review(
-    validation_file: Path, corrections_file: Path = Path("corrections.jsonl")
-) -> None:
+def review(validation_file: Path, corrections_file: Path = Path("corrections.jsonl")) -> None:
     if importlib.util.find_spec("streamlit") is None:
         console.print("Install legopolitics[review]")
         raise typer.Exit(1)
@@ -332,9 +324,7 @@ def register_yolo_model(
 ) -> None:
     """Copy and register a custom spatial YOLO checkpoint for legopolitics."""
     try:
-        console.print_json(
-            data=register_yolo_weights(weights, destination, overwrite=overwrite)
-        )
+        console.print_json(data=register_yolo_weights(weights, destination, overwrite=overwrite))
     except Exception as exc:
         console.print(f"[red]Could not register YOLO model:[/red] {exc}")
         raise typer.Exit(1) from exc
@@ -390,9 +380,7 @@ def benchmark(output: Path = Path("benchmark_output"), seconds: int = 2) -> None
     writer = cv2.VideoWriter(str(video), fourcc, 10, (320, 240))
     for index in range(seconds * 10):
         frame = np.zeros((240, 320, 3), dtype=np.uint8)
-        cv2.rectangle(
-            frame, (20 + index * 3, 60), (100 + index * 3, 180), (0, 255, 255), -1
-        )
+        cv2.rectangle(frame, (20 + index * 3, 60), (100 + index * 3, 180), (0, 255, 255), -1)
         writer.write(frame)
     writer.release()
     start = time.perf_counter()
