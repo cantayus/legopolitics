@@ -23,7 +23,8 @@ from legopolitics.utils.device import detect_device, recommend_hardware_profile
 from legopolitics.utils.environment import inspect_environment
 
 app = typer.Typer(
-    help="Multimodal research analysis of political brick-built videos.", no_args_is_help=True
+    help="Multimodal research analysis of political brick-built videos.",
+    no_args_is_help=True,
 )
 console = Console()
 
@@ -80,6 +81,7 @@ def analyze_video(
 ) -> None:
     cfg = _config(config).with_overrides(**{"project.resume": resume})
     result = LegoPoliticsAnalyzer(cfg).analyze_video(video, output)
+
     console.print(
         {
             "video_id": result.video.video_id,
@@ -93,8 +95,26 @@ def analyze_video(
 
 @app.command("analyze-directory")
 def analyze_directory(
-    input_root: Annotated[Path, typer.Option(exists=True, file_okay=False)],
-    output_root: Annotated[Path, typer.Option("--output-root")],
+    input_root: Annotated[
+        Path,
+        typer.Option(
+            "--input-root",
+            exists=True,
+            file_okay=False,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output_root: Annotated[
+        Path,
+        typer.Option(
+            "--output-root",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
     recursive: bool = True,
     num_batches: int = 1,
@@ -102,15 +122,41 @@ def analyze_directory(
     resume: bool = True,
 ) -> None:
     results = LegoPoliticsAnalyzer(_config(config)).analyze_directory(
-        input_root, output_root, recursive, True, num_batches, batch_id, resume
+        input_root,
+        output_root,
+        recursive,
+        True,
+        num_batches,
+        batch_id,
+        resume,
     )
     console.print(f"Completed {len(results)} videos")
 
 
 @app.command("sample-frames")
 def sample_frames(
-    video: Annotated[Path, typer.Option(exists=True)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
     cfg = _config(config).with_overrides(
@@ -127,15 +173,40 @@ def sample_frames(
     console.print(f"Sampled {len(result.frames)} frames")
 
 
-def _run_feature(video: Path, output: Path, config: Path | None, overrides: dict) -> None:
+def _run_feature(
+    video: Path,
+    output: Path,
+    config: Path | None,
+    overrides: dict,
+) -> None:
     cfg = _config(config).with_overrides(**overrides)
     LegoPoliticsAnalyzer(cfg).analyze_video(video, output)
 
 
 @app.command("detect")
 def detect(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
     _run_feature(video, output, config, {"detection.enabled": True})
@@ -143,35 +214,136 @@ def detect(
 
 @app.command("segment")
 def segment(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
-    _run_feature(video, output, config, {"detection.enabled": True, "segmentation.enabled": True})
+    _run_feature(
+        video,
+        output,
+        config,
+        {
+            "detection.enabled": True,
+            "segmentation.enabled": True,
+        },
+    )
 
 
 @app.command("track")
 def track(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
-    _run_feature(video, output, config, {"detection.enabled": True, "tracking.enabled": True})
+    _run_feature(
+        video,
+        output,
+        config,
+        {
+            "detection.enabled": True,
+            "tracking.enabled": True,
+        },
+    )
 
 
 @app.command("describe")
 def describe(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
-    _run_feature(video, output, config, {"vision.models.florence2.enabled": True})
+    _run_feature(
+        video,
+        output,
+        config,
+        {"vision.models.florence2.enabled": True},
+    )
 
 
 @app.command("ocr")
 def ocr(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
     _run_feature(video, output, config, {"ocr.enabled": True})
@@ -179,8 +351,28 @@ def ocr(
 
 @app.command("transcribe")
 def transcribe(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
     _run_feature(video, output, config, {"audio.enabled": True})
@@ -188,52 +380,135 @@ def transcribe(
 
 @app.command("analyze-audio")
 def analyze_audio(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
-    _run_feature(video, output, config, {"audio.enabled": True, "audio.audio_events.enabled": True})
+    _run_feature(
+        video,
+        output,
+        config,
+        {
+            "audio.enabled": True,
+            "audio.audio_events.enabled": True,
+        },
+    )
 
 
 @app.command("analyze-narrative")
 def analyze_narrative(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
-    _run_feature(video, output, config, {"prompting.narrative_pass": True})
+    _run_feature(
+        video,
+        output,
+        config,
+        {"prompting.narrative_pass": True},
+    )
 
 
 @app.command("export")
 def export(
-    result_json: Annotated[Path, typer.Option(exists=True)], config: Path | None = None
+    result_json: Annotated[
+        Path,
+        typer.Option(
+            "--result-json",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    config: Path | None = None,
 ) -> None:
     result = load_result(result_json)
     artifacts = export_result(result, _config(config))
-    console.print({k: str(v) for k, v in artifacts.items()})
+    console.print({key: str(value) for key, value in artifacts.items()})
 
 
 @app.command("validate")
-def validate(output: Annotated[Path, typer.Option(exists=True, file_okay=False)]) -> None:
+def validate(
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            exists=True,
+            file_okay=False,
+            dir_okay=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+) -> None:
     required = [
         output / "result.json",
         output / "run_manifest.sqlite",
         output / "video_summary.xlsx",
     ]
-    missing = [str(p) for p in required if not p.exists()]
+    missing = [str(path) for path in required if not path.exists()]
+
     if missing:
         console.print({"valid": False, "missing": missing})
         raise typer.Exit(1)
+
     load_result(output / "result.json")
     console.print({"valid": True, "output": str(output)})
 
 
 @app.command("review")
-def review(validation_file: Path, corrections_file: Path = Path("corrections.jsonl")) -> None:
+def review(
+    validation_file: Path,
+    corrections_file: Path = Path("corrections.jsonl"),
+) -> None:
     if importlib.util.find_spec("streamlit") is None:
         console.print("Install legopolitics[review]")
         raise typer.Exit(1)
+
     script = Path(__file__).parent / "review" / "streamlit_entry.py"
+
     subprocess.run(
         [
             sys.executable,
@@ -252,15 +527,47 @@ def review(validation_file: Path, corrections_file: Path = Path("corrections.jso
 
 
 @app.command("inspect-run")
-def inspect_run(manifest: Annotated[Path, typer.Option(exists=True)]) -> None:
+def inspect_run(
+    manifest: Annotated[
+        Path,
+        typer.Option(
+            "--manifest",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+) -> None:
     with RunManifest(manifest) as database:
         console.print_json(data=database.inspect())
 
 
 @app.command("retry-failures")
 def retry_failures(
-    video: Annotated[Path, typer.Option("--video", exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+        ),
+    ],
     config: Path | None = None,
 ) -> None:
     cfg = _config(config).with_overrides(**{"project.resume": False})
@@ -268,27 +575,57 @@ def retry_failures(
 
 
 @app.command("migrate-output")
-def migrate(path: Annotated[Path, typer.Option(exists=True)]) -> None:
+def migrate(
+    path: Annotated[
+        Path,
+        typer.Option(
+            "--path",
+            exists=True,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+) -> None:
     console.print({"schema_version": migrate_output(path)})
 
 
 @app.command("list-models")
 def list_models() -> None:
     table = Table("Capability", "Built-in adapter", "Optional extra")
+
     for row in [
         ("Detection", "YOLO, Grounding DINO, mock", "yolo / grounding"),
-        ("Vision", "Florence-2, BLIP, BLIP-2, CLIP, DINOv2, generic VLM", "huggingface"),
+        (
+            "Vision",
+            "Florence-2, BLIP, BLIP-2, CLIP, DINOv2, generic VLM",
+            "huggingface",
+        ),
         ("Segmentation", "SAM 2, box-mask fallback", "segmentation"),
-        ("Audio", "Whisper, Faster-Whisper, pyannote, audio classification", "audio / diarization"),
+        (
+            "Audio",
+            "Whisper, Faster-Whisper, pyannote, audio classification",
+            "audio / diarization",
+        ),
         ("OCR", "Florence-2, TrOCR", "ocr"),
     ]:
         table.add_row(*row)
+
     console.print(table)
 
 
 @app.command("inspect-yolo-model")
 def inspect_yolo_model(
-    weights: Annotated[Path, typer.Option("--weights", exists=True, dir_okay=False)],
+    weights: Annotated[
+        Path,
+        typer.Option(
+            "--weights",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
 ) -> None:
     """Inspect a custom YOLO checkpoint and print its task and class map."""
     try:
@@ -300,15 +637,37 @@ def inspect_yolo_model(
 
 @app.command("register-yolo-model")
 def register_yolo_model(
-    weights: Annotated[Path, typer.Option("--weights", exists=True, dir_okay=False)],
-    destination: Annotated[Path, typer.Option("--destination")] = Path(
-        "models/lego_figure_best.pt"
-    ),
+    weights: Annotated[
+        Path,
+        typer.Option(
+            "--weights",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+        ),
+    ],
+    destination: Annotated[
+        Path,
+        typer.Option(
+            "--destination",
+            file_okay=True,
+            dir_okay=False,
+            resolve_path=True,
+        ),
+    ] = Path("models/lego_figure_best.pt"),
     overwrite: bool = False,
 ) -> None:
-    """Copy and register a custom spatial YOLO checkpoint for legopolitics."""
+    """Copy and register a custom spatial YOLO checkpoint."""
     try:
-        console.print_json(data=register_yolo_weights(weights, destination, overwrite=overwrite))
+        console.print_json(
+            data=register_yolo_weights(
+                weights,
+                destination,
+                overwrite=overwrite,
+            )
+        )
     except Exception as exc:
         console.print(f"[red]Could not register YOLO model:[/red] {exc}")
         raise typer.Exit(1) from exc
@@ -319,6 +678,7 @@ def recommend_vlm_profile() -> None:
     """Recommend a Hugging Face VLM profile for the current hardware."""
     info = detect_device("auto")
     profile = recommend_hardware_profile(info)
+
     profile_map = {
         "cpu": "hf-cpu",
         "small_gpu": "hf-small-gpu",
@@ -326,6 +686,7 @@ def recommend_vlm_profile() -> None:
         "high_end_gpu": "hf-high-end-gpu",
         "maximum": "hf-maximum",
     }
+
     console.print_json(
         data={
             "device": info.device,
@@ -335,7 +696,8 @@ def recommend_vlm_profile() -> None:
             "recommended_hardware_profile": profile,
             "config_template": profile_map[profile],
             "command": (
-                f"legopolitics config-template --profile {profile_map[profile]} "
+                f"legopolitics config-template "
+                f"--profile {profile_map[profile]} "
                 "--output analysis.yaml"
             ),
         }
@@ -346,6 +708,7 @@ def recommend_vlm_profile() -> None:
 def doctor(output: Path = Path(".")) -> None:
     info = inspect_environment()
     info["output_writable"] = output.exists() and output.is_dir()
+
     review = Path("TRADEMARK_REVIEW.md")
     info["trademark_review_present"] = review.exists()
     info["trademark_review_completed"] = (
@@ -353,21 +716,36 @@ def doctor(output: Path = Path(".")) -> None:
         if review.exists()
         else False
     )
+
     console.print_json(data=info)
 
 
 @app.command("benchmark")
-def benchmark(output: Path = Path("benchmark_output"), seconds: int = 2) -> None:
+def benchmark(
+    output: Path = Path("benchmark_output"),
+    seconds: int = 2,
+) -> None:
     output.mkdir(parents=True, exist_ok=True)
+
     video = output / "synthetic.mp4"
     fourcc = getattr(cv2, "VideoWriter_fourcc")(*"mp4v")  # noqa: B009
     writer = cv2.VideoWriter(str(video), fourcc, 10, (320, 240))
+
     for index in range(seconds * 10):
         frame = np.zeros((240, 320, 3), dtype=np.uint8)
-        cv2.rectangle(frame, (20 + index * 3, 60), (100 + index * 3, 180), (0, 255, 255), -1)
+        cv2.rectangle(
+            frame,
+            (20 + index * 3, 60),
+            (100 + index * 3, 180),
+            (0, 255, 255),
+            -1,
+        )
         writer.write(frame)
+
     writer.release()
+
     start = time.perf_counter()
+
     cfg = AnalysisConfig().with_overrides(
         **{
             "sampling.mode": "fixed",
@@ -377,28 +755,45 @@ def benchmark(output: Path = Path("benchmark_output"), seconds: int = 2) -> None
             "output.parquet": False,
         }
     )
-    result = LegoPoliticsAnalyzer(cfg).analyze_video(video, output / "results")
+
+    result = LegoPoliticsAnalyzer(cfg).analyze_video(
+        video,
+        output / "results",
+    )
     elapsed = time.perf_counter() - start
+
     console.print(
         {
             "elapsed_seconds": elapsed,
             "sampled_frames": len(result.frames),
             "detections": len(result.detections),
-            "frames_per_second": len(result.frames) / elapsed if elapsed else None,
+            "frames_per_second": (
+                len(result.frames) / elapsed if elapsed else None
+            ),
         }
     )
 
 
 @app.command("config-template")
 def config_template(
-    output: Path = Path("analysis.yaml"),
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=True,
+            dir_okay=False,
+            resolve_path=True,
+        ),
+    ] = Path("analysis.yaml"),
     profile: Annotated[
         str,
         typer.Option(
             "--profile",
             help=(
-                "Configuration profile: default, lego-yolo, hf-ensemble, hf-cpu, "
-                "hf-small-gpu, hf-midrange-gpu, hf-high-end-gpu, or hf-maximum."
+                "Configuration profile: default, lego-yolo, hf-ensemble, "
+                "hf-cpu, hf-small-gpu, hf-midrange-gpu, hf-high-end-gpu, "
+                "or hf-maximum."
             ),
         ),
     ] = "default",
