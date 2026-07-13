@@ -34,10 +34,49 @@ def _config(path: Path | None) -> AnalysisConfig:
 
 @app.command("analyze-video")
 def analyze_video(
-    video: Annotated[Path, typer.Option(exists=True, dir_okay=False)],
-    output: Annotated[Path, typer.Option("--output")],
-    config: Path | None = None,
-    resume: bool = True,
+    video: Annotated[
+        Path,
+        typer.Option(
+            "--video",
+            "-v",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+            help="Path to the input video file.",
+        ),
+    ],
+    output: Annotated[
+        Path,
+        typer.Option(
+            "--output",
+            "-o",
+            file_okay=False,
+            dir_okay=True,
+            resolve_path=True,
+            help="Directory where analysis outputs will be written.",
+        ),
+    ],
+    config: Annotated[
+        Path | None,
+        typer.Option(
+            "--config",
+            exists=True,
+            file_okay=True,
+            dir_okay=False,
+            readable=True,
+            resolve_path=True,
+            help="Optional YAML configuration file.",
+        ),
+    ] = None,
+    resume: Annotated[
+        bool,
+        typer.Option(
+            "--resume/--no-resume",
+            help="Resume an existing run when possible.",
+        ),
+    ] = True,
 ) -> None:
     cfg = _config(config).with_overrides(**{"project.resume": resume})
     result = LegoPoliticsAnalyzer(cfg).analyze_video(video, output)
