@@ -1,0 +1,75 @@
+schema_version: "1.0"
+project:
+  name: "legopolitics with the supplied YOLO26s detector"
+  output_root: "outputs"
+  resume: true
+legal:
+  ultralytics_license_acknowledged: true
+sampling:
+  mode: "hybrid"
+  fps: 1.0
+  include_scene_boundaries: true
+  motion_sampling: true
+detection:
+  enabled: true
+  primary_backend: "yolo"
+  yolo:
+    weights: "model_assets/lego_figure_yolo26s/best.pt"
+    task: "detect"
+    confidence_threshold: 0.30
+    iou_threshold: 0.50
+    image_size: 640
+    device: "auto"
+    half_precision: true
+    class_filter:
+      - "lego_figure"
+    save_annotated_frames: true
+  open_vocabulary:
+    enabled: false
+tracking:
+  enabled: true
+  backend: "iou"
+  iou_match_threshold: 0.30
+  maximum_track_gap_frames: 10
+vision:
+  whole_frame: true
+  crops: true
+  context_crops: true
+  track_representatives: true
+  models:
+    florence2:
+      enabled: true
+      model_id: "microsoft/Florence-2-large-ft"
+      tasks:
+        - "more_detailed_caption"
+        - "ocr_with_region"
+    huggingface_vlms:
+      - name: "smolvlm2"
+        enabled: true
+        model_id: "HuggingFaceTB/SmolVLM2-2.2B-Instruct"
+        input_mode: "chat"
+        dtype: "auto"
+        generation:
+          max_new_tokens: 256
+      - name: "qwen2_5_vl"
+        enabled: true
+        model_id: "Qwen/Qwen2.5-VL-3B-Instruct"
+        input_mode: "chat"
+        dtype: "auto"
+        generation:
+          max_new_tokens: 256
+performance:
+  device: "auto"
+  dtype: "auto"
+  inference_batch_size: 1
+  unload_models_between_stages: true
+  oom_recovery: true
+output:
+  excel: true
+  parquet: true
+  jsonl: true
+  sqlite: true
+  html_report: true
+  save_frames: true
+  save_crops: true
+  save_annotated_frames: true
