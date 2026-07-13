@@ -1,3 +1,4 @@
+from click.utils import strip_ansi
 from typer.testing import CliRunner
 
 from legopolitics.cli import app
@@ -27,8 +28,16 @@ def test_schema_and_config_template(tmp_path):
     assert profile.exit_code == 0 and "lego_figure_best.pt" in yolo_target.read_text()
 
 
-def test_analyze_video_uses_named_output_option():
-    result = runner.invoke(app, ["analyze-video", "--help"])
-    assert result.exit_code == 0
-    assert "--video" in result.stdout
-    assert "--output" in result.stdout
+def test_analyze_video_uses_named_output_option() -> None:
+    result = runner.invoke(
+        app,
+        ["analyze-video", "--help"],
+        color=False,
+    )
+
+    assert result.exit_code == 0, result.output
+
+    help_text = strip_ansi(result.output)
+
+    assert "--video" in help_text
+    assert "--output" in help_text
